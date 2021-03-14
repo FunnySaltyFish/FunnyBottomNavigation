@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FunnyBottomNavigation">
+        <attr name="normalColor" format="color|reference"/>
+        <attr name="highlightColor" format="color|reference"/>
+        <attr name="paddingTop" format="dimension"/>
+        <attr name="imageWidth" format="dimension"/>
+        <attr name="imageHeight" format="dimension"/>
+        <attr name="startPage" format="integer"/>
+        <attr name="backgroundColor" format="color|reference"/>
+        <attr name="animationDuration" format="integer"/>
+    </declare-styleable>
+
+</resources>

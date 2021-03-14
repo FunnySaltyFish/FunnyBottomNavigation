@@ -1,0 +1,3 @@
+include ':bottomnavigation'
+include ':app'
+rootProject.name = "FunnyBottomNavigation"
