@@ -46,7 +46,7 @@ android {
                     groupId = 'com.funny.BottomNavigation'
                     artifactId = 'release'
                     version = versionName
-
+                    
                 }
                 // Creates a Maven publication called “debug”.
                 debug(MavenPublication) {
@@ -59,6 +59,19 @@ android {
                     
                 }
             }
+//            repositories {
+//                // 定义一个 maven 仓库
+//                maven {
+//                    // 可以有且仅有一个仓库不指定 name 属性，会隐式设置为 Maven
+//                    // 根据 versionName 来判断仓库地址
+//                    url = versionName.endsWith('SNAPSHOT') ? SNAPSHOT_REPOSITORY_URL : RELEASE_REPOSITORY_URL
+//                    // 仓库用户名密码
+//                    credentials {
+//                        username = "shine"
+//                        password = "shine"
+//                    }
+//                }
+//            }
         }
     }
 }
