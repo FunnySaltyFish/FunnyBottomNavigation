@@ -3,6 +3,14 @@
 #### 介绍
 一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java和xml配置
 
+#### 效果
+<img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo_show.gif" width="200"/>
+<p>
+<img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/custom_by_xml.png" width="200"/>
+<p/>
+
+因Gif画质压缩问题，图片可能无法反映真实效果。您可以点击[此处](https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo-1.0.1.apk)下载demo自行体验
+
 #### 快速开始
 ##### 导入
 1. 在应用级别的build.gradle添加jitpack仓库
