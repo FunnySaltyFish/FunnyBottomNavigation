@@ -1,13 +1,17 @@
 # FunnyBottomNavigation
+![](https://img.shields.io/github/issues/FunnySaltyFish/FunnyBottomNavigation?style=flat)
+![](https://img.shields.io/github/forks/FunnySaltyFish/FunnyBottomNavigation)
+![](https://img.shields.io/github/stars/FunnySaltyFish/FunnyBottomNavigation)
+![](https://img.shields.io/github/license/FunnySaltyFish/FunnyBottomNavigation)
 
 #### 介绍
 一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java和xml配置
 
 #### 效果
-<img src="https://github.com/FunnySaltyFish/FunnyBottomNavigation/raw/master/demo_show.gif" width="200"/>
-<p>
-<img src="https://github.com/funnysaltyfish/FunnyBottomNavigation/raw/master/custom_by_xml.png" width="200"/>
-<p/>
+<div>
+<img src="https://github.com/FunnySaltyFish/FunnyBottomNavigation/raw/master/demo_show.gif" width="200" style="float:left;margin:10px 20px;"/>
+<img src="https://github.com/funnysaltyfish/FunnyBottomNavigation/raw/master/custom_by_xml.png" width="200" style="float:right;margin:10px 20px;"/>
+<div/>
 
 因Gif画质压缩问题，图片可能无法反映真实效果。您可以点击[此处](https://github.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo-1.0.1.apk)下载demo自行体验
 
