@@ -381,6 +381,11 @@ public class FunnyBottomNavigation extends View {
         this.startPage = startPage;
     }
 
+    /*
+     当点击到底部按钮时会回调此接口
+     参数 position 为当前点击的按钮位置，取值为[0,总数-1]
+     注意，当动画仍在进行时点击无效，此时不会触发此回调
+    */
     public interface OnItemClickListener{
         void onClick(int position);
     }
@@ -393,6 +398,8 @@ public class FunnyBottomNavigation extends View {
         this.mOnItemClickListener = onItemClickListener;
     }
 
+    //当动画进行时会回调此接口
+    //参数 progress 值为[0,100]整数，代表当前动画进行的百分比
     public interface OnAnimationUpdateListener{
         void onUpdate(int progress);
     }
