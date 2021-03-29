@@ -4,10 +4,33 @@
 一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java和xml配置
 
 #### 效果
-<img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo_show.gif" width="200"/>
+
 <p>
-<img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/custom_by_xml.png" width="200"/>
-<p/>
+<div>
+<img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo_show.gif" width="200" style="float:left;margin:10px 20px;"/>
+<img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/custom_by_xml.png" width="200" style="float:right;margin:10px 20px;"/>
+<div/>
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 因Gif画质压缩问题，图片可能无法反映真实效果。您可以点击[此处](https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo-1.0.1.apk)下载demo自行体验
 
@@ -111,6 +134,48 @@ funnyButtomNavigation.setOnItemClickListener(position -> {
 
 ```
 请注意，**点击事件会在抬起手指后立刻回调！**
+
+
+
+##### 初始化
+
+&emsp;&emsp;本应用支持以下两种初始化方式
+
+```java
+	/**
+     * 初始化底部按钮
+     * @param iconIds 图片id的集合（ArrayList形式)
+     */
+    public void initIconButtons(ArrayList<Integer> iconIds)
+        
+    /**
+     * 初始化底部按钮
+     * @param iconIds 图片id的集合（int数组形式)
+     */
+    public void initIconButtons(int[] iconIds)
+```
+
+上述两种初始化效果完全相同。
+
+请注意，初始化会等待至View宽高测量完成再进行，此期间如果获取buttonList会产生错误！
+
+
+
+##### 手动跳转
+
+1.0.2版本新增了手动跳转的方法
+
+```java
+	/**
+     * 跳转到对应页面
+     * @param page 需要跳转的页面，取值 [0,页面总数-1]
+     * @param hasAnimation 是否有动画效果
+     * @param performClick 是否同时执行点击事件【请确保点击事件不会造成方法死循环】
+     */
+    public void moveTo(int page, boolean hasAnimation, boolean performClick)
+```
+
+
 
 #### 更多
 &emsp;&emsp;本库的动画效果参考自[这个视频](https://www.bilibili.com/video/BV1Jp4y1q71U?t=66)
