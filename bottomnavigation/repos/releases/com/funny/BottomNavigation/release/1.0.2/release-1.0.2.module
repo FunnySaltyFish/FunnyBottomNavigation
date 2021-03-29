@@ -3,7 +3,7 @@
   "component": {
     "group": "com.funny.BottomNavigation",
     "module": "release",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "attributes": {
       "org.gradle.status": "release"
     }
@@ -11,7 +11,7 @@
   "createdBy": {
     "gradle": {
       "version": "6.5",
-      "buildId": "5lnjytqqwzdefhqklodbvomkh4"
+      "buildId": "jcku74y3yjckxcp5hzxmeckeii"
     }
   },
   "variants": [
@@ -25,8 +25,8 @@
       },
       "files": [
         {
-          "name": "release-1.0.0.aar",
-          "url": "release-1.0.0.aar",
+          "name": "release-1.0.2.aar",
+          "url": "release-1.0.2.aar",
           "size": 38024,
           "sha512": "bf511522a083099342acf51219bf9e38069a00949aa8b2cdb7389ec6dd8e225abf809f41ce9080018510b00041965dae1ad4b2973ecce4b5d99eb98c0c48bfae",
           "sha256": "19936a5f05147dfe78788152fd3764753a4054901d79064ce38371ed176f7cdb",
@@ -61,8 +61,8 @@
       ],
       "files": [
         {
-          "name": "release-1.0.0.aar",
-          "url": "release-1.0.0.aar",
+          "name": "release-1.0.2.aar",
+          "url": "release-1.0.2.aar",
           "size": 38024,
           "sha512": "bf511522a083099342acf51219bf9e38069a00949aa8b2cdb7389ec6dd8e225abf809f41ce9080018510b00041965dae1ad4b2973ecce4b5d99eb98c0c48bfae",
           "sha256": "19936a5f05147dfe78788152fd3764753a4054901d79064ce38371ed176f7cdb",

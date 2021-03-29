@@ -105,6 +105,42 @@ public class FunnyBottomNavigation extends View {
     }
 
     /**
+     * 跳转到对应页面
+     * @param page 需要跳转的页面，取值 [0,页面总数-1]
+     * @param hasAnimation 是否有动画效果
+     * @param performClick 是否同时执行点击事件【请确保点击事件不会造成方法死循环】
+     */
+    public void moveTo(int page, boolean hasAnimation, boolean performClick) {
+        if(iconButtonList == null)throw new RuntimeException("Button list has not been initialized! Please make sure you have called initIconButtons(...) before or wait a moment and try again.");
+        if (page < 0 || page >= iconButtonList.size()) {
+            throw new IllegalArgumentException("Illegal page index! Please make sure that page is from 0 to (the number of buttons - 1).");
+        }
+        if (mValueAnimator.isRunning()) return;
+
+        if (mLastPage != page) {
+            mLastClickedIconButton = iconButtonList.get(mLastPage);
+            mNeedToClickIconButton = iconButtonList.get(page);
+            Direction direction = mNeedToClickIconButton.getImageX() < mLastClickedIconButton.getImageX() ? Direction.RIGHT_TO_LEFT : Direction.LEFT_TO_RIGHT;
+            mLastClickedIconButton.setDirection(direction);
+            mNeedToClickIconButton.setDirection(direction);
+            if (hasAnimation) startClickAnimation();
+            else resetProgress();
+            mLastPage = page;
+        }
+        if(performClick && mOnItemClickListener!=null){
+            mOnItemClickListener.onClick(page);
+        }
+    }
+
+    public void moveTo(int page){
+        moveTo(page,true,false);
+    }
+
+    public void moveTo(int page, boolean hasAnimation){
+        moveTo(page,hasAnimation,false);
+    }
+
+    /**
      * 初始化绘图相关
      */
     private void initGraphics(){
@@ -168,11 +204,7 @@ public class FunnyBottomNavigation extends View {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                mNeedToClickIconButton.setClickProgress(100);
-                mNeedToClickIconButton.setTransformProgress(0);
-                mLastClickedIconButton.setClickProgress(0);
-                mLastClickedIconButton.setTransformProgress(0);
-                invalidate();
+                resetProgress();
             }
 
             @Override
@@ -185,6 +217,17 @@ public class FunnyBottomNavigation extends View {
 
             }
         });
+    }
+
+    /**
+     * 清空已经进行的动画参数
+     */
+    private void resetProgress(){
+        mNeedToClickIconButton.setClickProgress(100);
+        mNeedToClickIconButton.setTransformProgress(0);
+        mLastClickedIconButton.setClickProgress(0);
+        mLastClickedIconButton.setTransformProgress(0);
+        invalidate();
     }
 
     private int getRandomInt(int min,int max){
@@ -289,16 +332,7 @@ public class FunnyBottomNavigation extends View {
                     IconButton iconButton = iconButtonList.get(i);
                     iconButton.setCurrentPage(false);
                     if (iconButton.isClicked(event.getX(),event.getY())){
-                        if(mValueAnimator.isRunning())return true;
-                        if(mLastPage != i){
-                            mLastClickedIconButton = iconButtonList.get(mLastPage);
-                            mNeedToClickIconButton = iconButton;
-                            Direction direction = mNeedToClickIconButton.getImageX() < mLastClickedIconButton.getImageX() ? Direction.RIGHT_TO_LEFT : Direction.LEFT_TO_RIGHT;
-                            mLastClickedIconButton.setDirection(direction);
-                            mNeedToClickIconButton.setDirection(direction);
-                            startClickAnimation();
-                            mLastPage = i;
-                        }
+                        moveTo(i,true);
                         if(mOnItemClickListener !=null){
                             mOnItemClickListener.onClick(i);
                         }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FunnyBottomNavigation</string>
+    <string name="move_to_page_2_with_animation">转到第2页（有动画）</string>
+    <string name="move_to_page_2_no_animation">转到第2页（无动画）</string>
 </resources>
