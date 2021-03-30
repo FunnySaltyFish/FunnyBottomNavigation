@@ -45,7 +45,7 @@ maven { url "https://jitpack.io" }
 2. 在模块级别的build.gradle引入依赖
 
 ```bash
-implementation 'com.gitee.funnysaltyfish:FunnyBottomNavigation:v1.0.1'
+implementation 'com.gitee.funnysaltyfish:FunnyBottomNavigation:v1.0.2'
 ```
 3. 同步
 
