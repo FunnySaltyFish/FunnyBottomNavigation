@@ -29,9 +29,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:animationDuration="500"
             app:backgroundColor="#FFFFFF"
-            app:imageWidth="24dp"
-            app:imageHeight="24dp"
-            app:highlightColor="@color/design_default_color_primary"
+            app:imageWidth="32dp"
+            app:imageHeight="32dp"
+            app:highlightColor="#069270"
             app:startPage="1"
             >
 
