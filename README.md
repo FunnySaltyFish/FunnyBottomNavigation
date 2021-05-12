@@ -7,10 +7,11 @@
 
 <p>
 <div>
-<img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo_show.gif" width="200" style="float:left;margin:10px 20px;"/>
+<img src="https://img-blog.csdnimg.cn/20210317115009446.gif#pic_center" width="200" style="float:left;margin:10px 20px;"/>
 <img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/custom_by_xml.png" width="200" style="float:right;margin:10px 20px;"/>
 <div/>
 </p>
+
 详细动画效果：  
 
 ![输入图片说明](https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/detail_gif.gif "在这里输入图片标题")   
