@@ -92,7 +92,7 @@ class FunnyBottomNavigation @JvmOverloads constructor(
 
     /**
      * 初始化底部按钮
-     * @param iconIds 图片id的集合（ArrayList形式)
+     * @param iconIds 图片id的集合（数组形式)
      */
     fun initIconButtons(iconIds: IntArray) {
         if (mViewWidth == 0 || mViewHeight == 0) {
