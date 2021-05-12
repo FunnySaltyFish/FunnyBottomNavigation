@@ -1,7 +1,7 @@
 # FunnyBottomNavigation
 
 #### 介绍
-一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java和xml配置
+一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java/Kotlin和xml配置
 
 #### 效果
 
@@ -11,28 +11,12 @@
 <img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/custom_by_xml.png" width="200" style="float:right;margin:10px 20px;"/>
 <div/>
 </p>
+详细动画效果：  
+
+![输入图片说明](https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/detail_gif.gif "在这里输入图片标题")   
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-因Gif画质压缩问题，图片可能无法反映真实效果。您可以点击[此处](https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo-1.0.1.apk)下载demo自行体验
+因Gif画质压缩问题，图片可能无法反映真实效果。您可以点击[此处](https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo-1.1.0.apk)下载demo自行体验
 
 #### 快速开始
 ##### 导入
@@ -43,9 +27,10 @@ maven { url "https://jitpack.io" }
 ```
 
 2. 在模块级别的build.gradle引入依赖
+* 请注意，从v1.1.0开始，此库的实现语言由原先的Java迁移至Kotlin，此变迁一般不会影响Java使用，但仍有一定概率出现问题。如果遇到这类情况，请在issue中提出。
 
 ```bash
-implementation 'com.gitee.funnysaltyfish:FunnyBottomNavigation:v1.0.2'
+implementation 'com.gitee.funnysaltyfish:FunnyBottomNavigation:v1.1.0'
 ```
 3. 同步
 
@@ -75,6 +60,23 @@ funnyButtomNavigation.setOnItemClickListener(position -> {
 });
 ```
 
+##### Kotlin配置
+
+```kotlin
+val ids  = intArrayOf(
+            R.drawable.ic_favorites,
+            R.drawable.ic_bin,
+            R.drawable.ic_run,
+            R.drawable.ic_favorites)
+//...
+funnyButtomNavigation.initIconButtons(ids);
+funnyButtomNavigation.onItemClickListener = object : FunnyBottomNavigation.OnItemClickListener{
+                override fun onClick(position: Int) {
+                    Log.i(TAG, "" + position + "isClicked")
+                    funnyViewModel.setText("第" + position + "页")
+                }
+            }
+```
 #### 高级配置
 
 &emsp;&emsp;除了上述简单的使用外，此库还支持额外的配置，以帮助您实现更为复杂和自定义的效果。
@@ -116,20 +118,20 @@ funnyButtomNavigation.setOnItemClickListener(position -> {
 ##### 回调
 &emsp;&emsp;本View目前可以设置两种监听，它们均位于FunnyBottomNavigation类下。
 
-```java
+```kotlin
     /*
      当点击到底部按钮时会回调此接口
      参数 position 为当前点击的按钮位置，取值为[0,总数-1]
      注意，当动画仍在进行时点击无效，此时不会触发此回调
     */
-    public interface OnItemClickListener{
-        void onClick(int position);
+    interface OnItemClickListener {
+        fun onClick(position: Int)
     }
 
     //当动画进行时会回调此接口
     //参数 progress 值为[0,100]整数，代表当前动画进行的百分比
-    public interface OnAnimationUpdateListener{
-        void onUpdate(int progress);
+    interface OnAnimationUpdateListener {
+        fun onUpdate(progress: Int)
     }
 
 ```
@@ -141,18 +143,18 @@ funnyButtomNavigation.setOnItemClickListener(position -> {
 
 &emsp;&emsp;本应用支持以下两种初始化方式
 
-```java
+```kotlin
 	/**
      * 初始化底部按钮
      * @param iconIds 图片id的集合（ArrayList形式)
      */
-    public void initIconButtons(ArrayList<Integer> iconIds)
+    fun initIconButtons(iconIds: ArrayList<Int?>) 
         
     /**
      * 初始化底部按钮
-     * @param iconIds 图片id的集合（int数组形式)
+     * @param iconIds 图片id的集合（数组形式)
      */
-    public void initIconButtons(int[] iconIds)
+    fun initIconButtons(iconIds: IntArray)
 ```
 
 上述两种初始化效果完全相同。
@@ -165,14 +167,15 @@ funnyButtomNavigation.setOnItemClickListener(position -> {
 
 1.0.2版本新增了手动跳转的方法
 
-```java
+```kotlin
 	/**
      * 跳转到对应页面
      * @param page 需要跳转的页面，取值 [0,页面总数-1]
      * @param hasAnimation 是否有动画效果
      * @param performClick 是否同时执行点击事件【请确保点击事件不会造成方法死循环】
      */
-    public void moveTo(int page, boolean hasAnimation, boolean performClick)
+    @JvmOverloads
+    fun moveTo(page: Int, hasAnimation: Boolean = true, performClick: Boolean = false)
 ```
 
 
