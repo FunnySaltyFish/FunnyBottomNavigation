@@ -21,7 +21,7 @@
 
 #### 快速开始
 ##### 导入
-1. 在应用级别的build.gradle添加jitpack仓库
+1. 在应用级别的build.gradle添加jitpack仓库(或 gradle 7.0后的 settings.gradle)
 
 ```bash
 maven { url "https://jitpack.io" }
@@ -31,7 +31,7 @@ maven { url "https://jitpack.io" }
 * 请注意，从v1.1.0开始，此库的实现语言由原先的Java迁移至Kotlin，此变迁一般不会影响Java使用，但仍有一定概率出现问题。如果遇到这类情况，请在issue中提出。
 
 ```bash
-implementation 'com.gitee.funnysaltyfish:FunnyBottomNavigation:v1.1.0'
+implementation 'com.gitee.funnysaltyfish:FunnyBottomNavigation:v1.1.1'
 ```
 3. 同步
 
@@ -71,12 +71,10 @@ val ids  = intArrayOf(
             R.drawable.ic_favorites)
 //...
 funnyButtomNavigation.initIconButtons(ids);
-funnyButtomNavigation.onItemClickListener = object : FunnyBottomNavigation.OnItemClickListener{
-                override fun onClick(position: Int) {
-                    Log.i(TAG, "" + position + "isClicked")
-                    funnyViewModel.setText("第" + position + "页")
-                }
-            }
+funnyButtomNavigation.setOnItemClickListener { position ->
+    Log.i(TAG, "" + position + "isClicked")
+    funnyViewModel.setText("第" + position + "页")
+}
 ```
 #### 高级配置
 
@@ -85,7 +83,9 @@ funnyButtomNavigation.onItemClickListener = object : FunnyBottomNavigation.OnIte
 &emsp;&emsp;支持配置的属性如下：
 
 ```xml
-	<!--        按钮被点击时渲染的颜色-->
+        <!--        未选中时的图标tint色     -->
+        <attr name="normalColor" format="color|reference" />
+	    <!--        按钮被点击时渲染的颜色-->
         <attr name="highlightColor" format="color|reference" />
         <!--        按钮图片的宽度-->
         <attr name="imageWidth" format="dimension" />
@@ -138,8 +138,6 @@ funnyButtomNavigation.onItemClickListener = object : FunnyBottomNavigation.OnIte
 ```
 请注意，**点击事件会在抬起手指后立刻回调！**
 
-
-
 ##### 初始化
 
 &emsp;&emsp;本应用支持以下两种初始化方式
@@ -147,9 +145,9 @@ funnyButtomNavigation.onItemClickListener = object : FunnyBottomNavigation.OnIte
 ```kotlin
 	/**
      * 初始化底部按钮
-     * @param iconIds 图片id的集合（ArrayList形式)
+     * @param iconIds 图片id的集合（List形式)
      */
-    fun initIconButtons(iconIds: ArrayList<Int?>) 
+    fun initIconButtons(iconIds: List<Int>) 
         
     /**
      * 初始化底部按钮
@@ -161,7 +159,6 @@ funnyButtomNavigation.onItemClickListener = object : FunnyBottomNavigation.OnIte
 上述两种初始化效果完全相同。
 
 请注意，初始化会等待至View宽高测量完成再进行，此期间如果获取buttonList会产生错误！
-
 
 
 ##### 手动跳转
@@ -179,10 +176,11 @@ funnyButtomNavigation.onItemClickListener = object : FunnyBottomNavigation.OnIte
     fun moveTo(page: Int, hasAnimation: Boolean = true, performClick: Boolean = false)
 ```
 
-
+##### 在 Jetpack Compose 中使用
+可以参考本人开源项目 FunnyTranslation 的 [这里](https://github.com/FunnySaltyFish/FunnyTranslation/blob/compose/translate/src/main/java/com/funny/translation/translate/ui/widget/NavigationWidget.kt)
 
 #### 更多
+&emsp;&emsp;如果需要查看此库的部分输出，可设置 `FunnyBottomNavigation.DEBUG = true`
 &emsp;&emsp;本库的动画效果参考自[这个视频](https://www.bilibili.com/video/BV1Jp4y1q71U?t=66)
-
 &emsp;&emsp;如果在使用过程中遇到问题，或对本库有任何功能性建议的，欢迎提出对应issue。您的支持就是我们持续进步的最大动力。
 

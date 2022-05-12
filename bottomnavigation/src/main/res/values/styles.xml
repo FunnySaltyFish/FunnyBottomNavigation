@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="FunnyBottomNavigation">
+        <!--        未选中时的图标tint色     -->
         <attr name="normalColor" format="color|reference" />
         <!--        按钮被点击时渲染的颜色-->
         <attr name="highlightColor" format="color|reference" />
