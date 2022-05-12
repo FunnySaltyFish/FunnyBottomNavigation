@@ -28,11 +28,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:animationDuration="500"
-            app:backgroundColor="#FFFFFF"
+            app:backgroundColor="#fff433"
             app:imageWidth="32dp"
             app:imageHeight="32dp"
             app:highlightColor="#069270"
             app:startPage="1"
+            app:normalColor="#ff0000"
             >
 
         </com.funny.bottomnavigation.FunnyBottomNavigation>

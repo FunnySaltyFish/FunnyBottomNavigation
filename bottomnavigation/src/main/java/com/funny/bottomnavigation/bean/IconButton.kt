@@ -2,8 +2,8 @@ package com.funny.bottomnavigation.bean
 
 import android.content.Context
 import android.graphics.*
-import android.util.Log
 import com.funny.bottomnavigation.FunnyBottomNavigation
+import com.funny.bottomnavigation.FunnyBottomNavigation.Companion.log
 import com.funny.bottomnavigation.utils.BitmapUtils.getBitmapFromResources
 import com.funny.bottomnavigation.utils.BitmapUtils.getScaledBitmap
 
@@ -16,7 +16,8 @@ class IconButton(
     var height: Int,
     var imageWidth: Int,
     var imageHeight: Int,
-    var srcColor: Int
+    var srcColor: Int,
+    var normalColor : Int
 ) {
     var backgroundColor = Color.parseColor("#6e6c6f")
     var paddingLeft = 0
@@ -53,8 +54,8 @@ class IconButton(
 
         paint = Paint().also {
             it.color = srcColor
-            it.alpha = 0
             it.isAntiAlias = true
+            it.alpha = 255
         }
         progressRect = RectF()
         xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_IN)
@@ -70,13 +71,29 @@ class IconButton(
      * @return void
      */
     fun drawSelf(canvas: Canvas) {
-        if (clickProgress > 0) { //正在处于被点击状态
-            paint.alpha = 255
+        fun drawColorIcon(color : Int){
+            val layerId =
+                canvas.saveLayer(imageX, imageY, imageX + imageWidth, imageY + imageHeight, paint)
+            paint.color = color
+            paint.style = Paint.Style.FILL
+            canvas.drawRect(imageX, imageY, imageX + imageWidth, imageY + imageHeight ,paint)
+            paint.xfermode = xfermode
+            canvas.drawBitmap(bitmap, imageX, imageY, paint)
+            paint.xfermode = null
+            canvas.restoreToCount(layerId)
+            log("$id drawColorIcon $color")
+        }
+
+        log("$id clickProgress: $clickProgress transformProgress :$transformProgress")
+        if (clickProgress == 100){
+            drawColorIcon(srcColor)
+            return
+        }
+        else if(clickProgress > 0){
             canvas.save()
             if (clickProgress in 60..80) {
-
                 val scale = 1 + (maxScaleTimes - 1f) / 20f * (clickProgress - 60)
-                Log.d(TAG, "$id drawSelf 6-8: px:${scale}")
+//                log("$id drawSelf 6-8: px:${scale}")
                 canvas.scale(
                     scale,
                     scale,
@@ -85,7 +102,7 @@ class IconButton(
                 )
             } else if(clickProgress > 80) {
                 val scale = maxScaleTimes - (maxScaleTimes - 1f) / 20f * (clickProgress - 80)
-                Log.d(TAG, "$id drawSelf: px 8-10:${maxScaleTimes}")
+//                log("$id drawSelf: px 8-10:${maxScaleTimes}")
                 canvas.scale(
                     scale,
                     scale,
@@ -94,26 +111,25 @@ class IconButton(
                 )
             }
 
-            paint.alpha = 255
             val centerCircle = if(direction==FunnyBottomNavigation.Direction.LEFT_TO_RIGHT){//左向右减少
                 imageLeftCenter
             }else{
                 imageRightCenter
             }
             val radius = clickProgress / 100f * 2.236f * imageWidth / 2
-            canvas.drawBitmap(bitmap, imageX, imageY, paint)
+
             paint.style = Paint.Style.FILL
+            drawColorIcon(normalColor)
             val layerId =
                 canvas.saveLayer(imageX, imageY, imageX + imageWidth, imageY + imageHeight, paint)
             paint.color = srcColor
             canvas.drawCircle(centerCircle[0],centerCircle[1],radius, paint)
             paint.xfermode = xfermode
-            paint.color = backgroundColor
             canvas.drawBitmap(bitmap, imageX, imageY, paint)
             paint.xfermode = null
             canvas.restoreToCount(layerId)
-            //Log.d(TAG, "drawSelf: transformProgress:${transformProgress}")
-            //Log.d(TAG, "drawSelf: radius:${radius}")
+            //log("drawSelf: transformProgress:${transformProgress}")
+            //log("drawSelf: radius:${radius}")
 
             //恢复到缩放前状态
             canvas.restore()
@@ -132,9 +148,10 @@ class IconButton(
                 0.75f * imageHeight * clickProgress / 100f,
                 paint
             )
-        } else {
-            paint.color = backgroundColor
-            canvas.drawBitmap(bitmap, imageX, imageY, paint)
+        }
+        else{
+            drawColorIcon(normalColor)
+            return
         }
 
         if (transformProgress > 0) {
@@ -145,7 +162,7 @@ class IconButton(
                 imageLeftCenter
             }
             val radius = (100f - transformProgress) / 100f * 2.236f * imageWidth / 2
-            paint.style = Paint.Style.FILL
+            drawColorIcon(normalColor)
             val layerId =
                 canvas.saveLayer(imageX, imageY, imageX + imageWidth, imageY + imageHeight, paint)
             paint.color = srcColor
@@ -155,9 +172,13 @@ class IconButton(
             canvas.drawBitmap(bitmap, imageX, imageY, paint)
             paint.xfermode = null
             canvas.restoreToCount(layerId)
-            //Log.d(TAG, "drawSelf: transformProgress:${transformProgress}")
-            //Log.d(TAG, "drawSelf: radius:${radius}")
+            //log("drawSelf: transformProgress:${transformProgress}")
+            //log("drawSelf: radius:${radius}")
         }
+        else drawColorIcon(normalColor)
+
+//        log("$id drawNormal")
+//        drawNormalColorIcon()
     }
 
     val imageLeftCenter: FloatArray

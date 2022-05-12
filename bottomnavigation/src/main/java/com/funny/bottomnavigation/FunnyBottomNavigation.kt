@@ -2,7 +2,6 @@ package com.funny.bottomnavigation
 
 import android.animation.Animator
 import android.animation.ValueAnimator
-import android.animation.ValueAnimator.AnimatorUpdateListener
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -11,7 +10,6 @@ import android.view.MotionEvent
 import android.view.View
 import com.funny.bottomnavigation.bean.IconButton
 import java.util.*
-import kotlin.collections.ArrayList
 
 class FunnyBottomNavigation @JvmOverloads constructor(
     private var mContext: Context,
@@ -51,43 +49,23 @@ class FunnyBottomNavigation @JvmOverloads constructor(
     private var transformPaths: ArrayList<Path>? = null
     private var transformPathMeasure: PathMeasure? = null
 
-    companion object{
-        const val TAG = "FunnyBottomNavigation"
+    companion object {
+        private const val TAG = "FunnyBottomNavigation"
         val random = Random()
+        var DEBUG = false
+
+        fun log(msg: String) {
+            if (DEBUG) Log.d(TAG, msg)
+        }
     }
 
 
     /**
      * 初始化底部按钮
-     * @param iconIds 图片id的集合（ArrayList形式)
+     * @param iconIds 图片id的集合（List形式)
      */
-    fun initIconButtons(iconIds: ArrayList<Int?>) {
-        if (mViewWidth == 0 || mViewHeight == 0) {
-            postDelayed({ initIconButtons(iconIds) }, 100)
-            return
-        }
-        val itemWidth = mViewWidth / iconIds.size
-        iconButtonList = ArrayList()
-        for (i in iconIds.indices) {
-            val currentX = i * itemWidth
-            val iconButton = IconButton(
-                mContext,
-                iconIds[i]!!,
-                currentX.toFloat(),
-                iconOffsetY.toFloat(),
-                itemWidth,
-                mViewHeight - iconOffsetY,
-                imageWidth,
-                imageHeight,
-                highlightColor
-            )
-
-            iconButton.id = i
-
-            iconButtonList?.add(iconButton)
-        }
-        mLastClickedIconButton = iconButtonList?.get(mLastPage)?.also { it.clickProgress = (100) }
-        invalidate()
+    fun initIconButtons(iconIds: List<Int>) {
+        initIconButtons(iconIds.toIntArray())
     }
 
     /**
@@ -112,7 +90,8 @@ class FunnyBottomNavigation @JvmOverloads constructor(
                 mViewHeight - iconOffsetY,
                 imageWidth,
                 imageHeight,
-                highlightColor
+                highlightColor,
+                normalColor
             )
             iconButton.id = i
 
@@ -121,6 +100,12 @@ class FunnyBottomNavigation @JvmOverloads constructor(
         mLastClickedIconButton = iconButtonList?.get(mLastPage)?.also { it.clickProgress = (100) }
         invalidate()
     }
+
+    /**
+     * 判断是否完成了初始化（即宽高测量完毕、且设置了 iconButtons )
+     * @return Boolean
+     */
+    fun hasInitialized() = !iconButtonList.isNullOrEmpty() && mViewWidth > 0 && mViewHeight > 0
 
     /**
      * 初始化绘图相关
@@ -145,11 +130,11 @@ class FunnyBottomNavigation @JvmOverloads constructor(
                 val progress = animation.animatedValue as Int
                 mNeedToClickIconButton?.clickProgress = (progress)
                 mLastClickedIconButton?.transformProgress = (progress)
-                    //Log.d(TAG, "initAnimators: clickProgress:${progress}")
+                //Log.d(TAG, "initAnimators: clickProgress:${progress}")
                 onAnimationUpdateListener?.onUpdate(progress)
                 invalidate()
             }
-            it.addListener(object : Animator.AnimatorListener{
+            it.addListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(animation: Animator) {}
                 override fun onAnimationEnd(animation: Animator) {
                     resetProgress()
@@ -257,9 +242,10 @@ class FunnyBottomNavigation @JvmOverloads constructor(
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         mViewWidth = MeasureSpec.getSize(widthMeasureSpec)
-        mViewHeight = if (heightMode == MeasureSpec.AT_MOST || heightMode == MeasureSpec.EXACTLY) {
-            2 * imageHeight
-        } else MeasureSpec.getSize(heightMeasureSpec)
+        mViewHeight =
+            if (heightMode == MeasureSpec.AT_MOST || heightMode == MeasureSpec.UNSPECIFIED) {
+                2 * imageHeight
+            } else MeasureSpec.getSize(heightMeasureSpec)
         setMeasuredDimension(mViewWidth, mViewHeight)
     }
 
@@ -329,6 +315,14 @@ class FunnyBottomNavigation @JvmOverloads constructor(
         }
     }
 
+    fun setOnItemClickListener(listener: (Int) -> Unit) {
+        onItemClickListener = object : OnItemClickListener {
+            override fun onClick(position: Int) {
+                listener(position)
+            }
+        }
+    }
+
     override fun getPaddingTop(): Int {
         return iconOffsetY
     }
@@ -342,8 +336,10 @@ class FunnyBottomNavigation @JvmOverloads constructor(
         fun onClick(position: Int)
     }
 
-    //当动画进行时会回调此接口
-    //参数 progress 值为[0,100]整数，代表当前动画进行的百分比
+    /**
+     * 当动画进行时会回调此接口
+     * 参数 progress 值为 [[0-100]] 整数，代表当前动画进行的百分比
+     */
     interface OnAnimationUpdateListener {
         fun onUpdate(progress: Int)
     }
@@ -355,14 +351,6 @@ class FunnyBottomNavigation @JvmOverloads constructor(
     init {
         val typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.FunnyBottomNavigation)
         with(typedArray) {
-            normalColor = this.getColor(
-                R.styleable.FunnyBottomNavigation_normalColor,
-                Color.parseColor("#6e6c6f")
-            )
-            highlightColor = this.getColor(
-                R.styleable.FunnyBottomNavigation_highlightColor,
-                Color.parseColor("#069270")
-            )
             iconOffsetY =
                 this.getDimensionPixelOffset(R.styleable.FunnyBottomNavigation_paddingTop, 0)
             imageWidth =
@@ -383,22 +371,10 @@ class FunnyBottomNavigation @JvmOverloads constructor(
                 R.styleable.FunnyBottomNavigation_highlightColor,
                 Color.parseColor("#069270")
             )
-            iconOffsetY =
-                this.getDimensionPixelOffset(R.styleable.FunnyBottomNavigation_paddingTop, 0)
-            imageWidth =
-                this.getDimensionPixelOffset(R.styleable.FunnyBottomNavigation_imageWidth, 80)
-            imageHeight =
-                this.getDimensionPixelOffset(R.styleable.FunnyBottomNavigation_imageHeight, 80)
-            mLastPage = this.getInteger(R.styleable.FunnyBottomNavigation_startPage, 0)
-            startPage = mLastPage
-            navigationBgColor =
-                this.getColor(R.styleable.FunnyBottomNavigation_backgroundColor, Color.WHITE)
-            animationDuration =
-                this.getInt(R.styleable.FunnyBottomNavigation_animationDuration, 500)
             this.recycle()
         }
         initGraphics()
         initAnimators()
-        setLayerType(LAYER_TYPE_SOFTWARE, null)
+//        setLayerType(LAYER_TYPE_SOFTWARE, null)
     }
 }

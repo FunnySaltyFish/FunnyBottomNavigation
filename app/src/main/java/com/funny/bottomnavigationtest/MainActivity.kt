@@ -29,17 +29,18 @@ class MainActivity : AppCompatActivity() {
             lifecycleOwner = this@MainActivity
 
             funnyViewModel.iconIds.value?.let { funnyButtomNavigation.initIconButtons(it) }
-            funnyButtomNavigation.onItemClickListener = object : FunnyBottomNavigation.OnItemClickListener{
-                override fun onClick(position: Int) {
-                    Log.i(TAG, "" + position + "isClicked")
-                    funnyViewModel.setText("第" + position + "页")
-                }
+            funnyButtomNavigation.setOnItemClickListener { position ->
+                Log.i(TAG, "" + position + "isClicked")
+                funnyViewModel.setText("第" + position + "页")
             }
         }
 
         funnyViewModel.setText(
             "起始第" + activityMainBinding.funnyButtomNavigation.startPage.toString() + "页"
         )
+
+        // 开启调试输出，默认关闭
+        FunnyBottomNavigation.DEBUG = true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
