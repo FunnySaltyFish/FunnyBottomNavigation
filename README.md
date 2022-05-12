@@ -14,14 +14,14 @@
 
 详细动画效果：  
 
-![输入图片说明](https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/detail_gif.gif "在这里输入图片标题")   
+![输入图片说明](detail_gif.gif)   
 
 
-因Gif画质压缩问题，图片可能无法反映真实效果。您可以点击[此处](https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/demo-1.1.0.apk)下载demo自行体验
+因Gif画质压缩问题，图片可能无法反映真实效果。您可以点击[此处](demo-1.1.1.apk)下载demo自行体验
 
 #### 快速开始
 ##### 导入
-1. 在应用级别的build.gradle添加jitpack仓库(或 gradle 7.0后的 settings.gradle)
+1. 在应用级别的build.gradle添加jitpack仓库(或 gradle 7.0后的 settings.gradle )
 
 ```bash
 maven { url "https://jitpack.io" }
@@ -29,9 +29,9 @@ maven { url "https://jitpack.io" }
 
 2. 在模块级别的build.gradle引入依赖
 * 请注意，从v1.1.0开始，此库的实现语言由原先的Java迁移至Kotlin，此变迁一般不会影响Java使用，但仍有一定概率出现问题。如果遇到这类情况，请在issue中提出。
-
+* v1.1.1 发布地址由 gitee 更改至 github，所以下面的全名有差别。不能只改版本号。
 ```bash
-implementation 'com.gitee.funnysaltyfish:FunnyBottomNavigation:v1.1.1'
+implementation 'com.github.FunnySaltyFish:FunnyBottomNavigation:v1.1.1'
 ```
 3. 同步
 
@@ -180,7 +180,9 @@ funnyButtomNavigation.setOnItemClickListener { position ->
 可以参考本人开源项目 FunnyTranslation 的 [这里](https://github.com/FunnySaltyFish/FunnyTranslation/blob/compose/translate/src/main/java/com/funny/translation/translate/ui/widget/NavigationWidget.kt)
 
 #### 更多
-&emsp;&emsp;如果需要查看此库的部分输出，可设置 `FunnyBottomNavigation.DEBUG = true`
-&emsp;&emsp;本库的动画效果参考自[这个视频](https://www.bilibili.com/video/BV1Jp4y1q71U?t=66)
-&emsp;&emsp;如果在使用过程中遇到问题，或对本库有任何功能性建议的，欢迎提出对应issue。您的支持就是我们持续进步的最大动力。
+&emsp;&emsp;如果需要查看此库的部分输出，可设置 `FunnyBottomNavigation.DEBUG = true`  
+
+&emsp;&emsp;本库的动画效果参考自[这个视频](https://www.bilibili.com/video/BV1Jp4y1q71U?t=66)  
+
+&emsp;&emsp;如果在使用过程中遇到问题，或对本库有任何功能性建议的，欢迎提出对应issue。您的支持就是我们持续进步的最大动力。  
 
