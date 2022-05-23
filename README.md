@@ -1,8 +1,11 @@
 # FunnyBottomNavigation
 
 #### 介绍
-一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java/Kotlin和xml配置
-本 View 已在本人项目[译站](https://github.com/FunnySaltyFish/FunnyTranslation)中实际使用
+一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java/Kotlin和xml配置  
+本 View 已在本人项目[译站](https://github.com/FunnySaltyFish/FunnyTranslation)中实际使用  
+
+点击[此处](ChangeLog.md)查看变更日志  
+
 
 #### 效果
 
@@ -32,7 +35,7 @@ maven { url "https://jitpack.io" }
 * 请注意，从v1.1.0开始，此库的实现语言由原先的Java迁移至Kotlin，此变迁一般不会影响Java使用，但仍有一定概率出现问题。如果遇到这类情况，请在issue中提出。
 * v1.1.1 发布地址由 gitee 更改至 github，所以下面的全名有差别。不能只改版本号。
 ```bash
-implementation 'com.github.FunnySaltyFish:FunnyBottomNavigation:v1.1.1'
+implementation 'com.github.FunnySaltyFish:FunnyBottomNavigation:v1.1.2'
 ```
 3. 同步
 
@@ -177,8 +180,8 @@ funnyButtomNavigation.setOnItemClickListener { position ->
     fun moveTo(page: Int, hasAnimation: Boolean = true, performClick: Boolean = false)
 ```
 
-##### 在 Jetpack Compose 中使用
-可以参考本人开源项目 FunnyTranslation 的 [这里](https://github.com/FunnySaltyFish/FunnyTranslation/blob/compose/translate/src/main/java/com/funny/translation/translate/ui/widget/NavigationWidget.kt)
+#### 在 Jetpack Compose 中使用
+&emsp;&emsp;可以参考本人开源项目 FunnyTranslation 的 [这里](https://github.com/FunnySaltyFish/FunnyTranslation/blob/compose/translate/src/main/java/com/funny/translation/translate/ui/widget/NavigationWidget.kt)
 
 #### 更多
 &emsp;&emsp;如果需要查看此库的部分输出，可设置 `FunnyBottomNavigation.DEBUG = true`  
