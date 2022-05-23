@@ -1,0 +1,74 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.funny.BottomNavigation",
+    "module": "release",
+    "version": "1.1.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "7.3"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "release-1.1.2.aar",
+          "url": "release-1.1.2.aar",
+          "size": 25774,
+          "sha512": "62092720a9da9f5cdbc3faf899a1b14476a3cedca6f1262caa870c5a6335572558627ecb8238d10724aafef5b3ea5f472d47f7a3e67f875c13d29bc641c2987b",
+          "sha256": "85bbba6837a8f3e5c9196212763d0d193d978b7257ce9beb37d222760f72a4ca",
+          "sha1": "f7bec243ecdc602dc730a0503a8d11a0e4613758",
+          "md5": "2c330e19e134c15e37bb9ea6835174ba"
+        }
+      ]
+    },
+    {
+      "name": "releaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.7.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk7",
+          "version": {
+            "requires": "1.6.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "release-1.1.2.aar",
+          "url": "release-1.1.2.aar",
+          "size": 25774,
+          "sha512": "62092720a9da9f5cdbc3faf899a1b14476a3cedca6f1262caa870c5a6335572558627ecb8238d10724aafef5b3ea5f472d47f7a3e67f875c13d29bc641c2987b",
+          "sha256": "85bbba6837a8f3e5c9196212763d0d193d978b7257ce9beb37d222760f72a4ca",
+          "sha1": "f7bec243ecdc602dc730a0503a8d11a0e4613758",
+          "md5": "2c330e19e134c15e37bb9ea6835174ba"
+        }
+      ]
+    }
+  ]
+}

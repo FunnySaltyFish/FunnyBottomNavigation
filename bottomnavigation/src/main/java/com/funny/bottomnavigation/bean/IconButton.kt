@@ -17,7 +17,8 @@ class IconButton(
     var imageWidth: Int,
     var imageHeight: Int,
     var srcColor: Int,
-    var normalColor : Int
+    var normalColor : Int,
+    var clickMargin : Int = 8
 ) {
     var backgroundColor = Color.parseColor("#6e6c6f")
     var paddingLeft = 0
@@ -62,7 +63,7 @@ class IconButton(
     }
 
     fun isClicked(actionX: Float, actionY: Float): Boolean {
-        return actionX >= imageX && actionX <= imageX + imageWidth && actionY >= imageY && actionY <= imageY + imageHeight
+        return actionX >= imageX - clickMargin && actionX <= imageX + imageWidth + clickMargin && actionY >= imageY - clickMargin && actionY <= imageY + imageHeight + clickMargin
     }
 
     /**
@@ -71,17 +72,17 @@ class IconButton(
      * @return void
      */
     fun drawSelf(canvas: Canvas) {
-        fun drawColorIcon(color : Int){
-            val layerId =
-                canvas.saveLayer(imageX, imageY, imageX + imageWidth, imageY + imageHeight, paint)
-            paint.color = color
-            paint.style = Paint.Style.FILL
-            canvas.drawRect(imageX, imageY, imageX + imageWidth, imageY + imageHeight ,paint)
-            paint.xfermode = xfermode
-            canvas.drawBitmap(bitmap, imageX, imageY, paint)
-            paint.xfermode = null
-            canvas.restoreToCount(layerId)
-            log("$id drawColorIcon $color")
+         fun drawColorIcon(color : Int){
+             val layerId = canvas.saveLayer(imageX, imageY, imageX + imageWidth, imageY + imageHeight, paint)
+             paint.color = color
+             paint.style = Paint.Style.FILL
+             // +、- 2 是为了防止边框出现
+             canvas.drawRect(imageX + 2, imageY + 2, imageX + imageWidth - 2, imageY + imageHeight - 2 ,paint)
+             paint.xfermode = xfermode
+             canvas.drawBitmap(bitmap, imageX, imageY, paint)
+             paint.xfermode = null
+             canvas.restoreToCount(layerId)
+             log("$id drawColorIcon $color")
         }
 
         log("$id clickProgress: $clickProgress transformProgress :$transformProgress")
@@ -111,18 +112,20 @@ class IconButton(
                 )
             }
 
+            // 单独缩放不绘制圆形不会导致边框
             val centerCircle = if(direction==FunnyBottomNavigation.Direction.LEFT_TO_RIGHT){//左向右减少
                 imageLeftCenter
             }else{
                 imageRightCenter
             }
             val radius = clickProgress / 100f * 2.236f * imageWidth / 2
-
             paint.style = Paint.Style.FILL
             drawColorIcon(normalColor)
             val layerId =
                 canvas.saveLayer(imageX, imageY, imageX + imageWidth, imageY + imageHeight, paint)
             paint.color = srcColor
+            // 加上clip后不会出现边框了
+            canvas.clipRect(imageX + 2, imageY + 2, imageX + imageWidth - 2, imageY + imageHeight - 2)
             canvas.drawCircle(centerCircle[0],centerCircle[1],radius, paint)
             paint.xfermode = xfermode
             canvas.drawBitmap(bitmap, imageX, imageY, paint)

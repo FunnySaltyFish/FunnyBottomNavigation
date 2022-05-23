@@ -2,15 +2,16 @@
 
 #### 介绍
 一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java/Kotlin和xml配置
+本 View 已在本人项目[译站](https://github.com/FunnySaltyFish/FunnyTranslation)中实际使用
 
 #### 效果
 
-<p>
+<p></p>
 <div>
 <img src="https://img-blog.csdnimg.cn/20210317115009446.gif#pic_center" width="200" style="float:left;margin:10px 20px;"/>
 <img src="https://gitee.com/funnysaltyfish/FunnyBottomNavigation/raw/master/custom_by_xml.png" width="200" style="float:right;margin:10px 20px;"/>
-<div/>
-</p>
+</div>
+<p></p>
 
 详细动画效果：  
 

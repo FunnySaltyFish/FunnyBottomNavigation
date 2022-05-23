@@ -13,7 +13,7 @@ android {
     compileSdkVersion 31
     buildToolsVersion "31.0.0"
 
-    def libVersionName = "1.1.1"
+    def libVersionName = "1.1.2"
 
     defaultConfig {
         minSdkVersion 21

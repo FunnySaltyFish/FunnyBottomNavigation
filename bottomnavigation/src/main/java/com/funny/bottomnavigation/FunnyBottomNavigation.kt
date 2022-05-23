@@ -26,11 +26,16 @@ class FunnyBottomNavigation @JvmOverloads constructor(
     var highlightColor: Int
     var normalColor: Int
     var navigationBgColor: Int
-    var animationDuration: Int
+    var animationDuration: Int = 500
+        set(value){
+            field = value
+            mValueAnimator?.duration = value.toLong()
+        }
     var startPage: Int
     private var iconButtonList: ArrayList<IconButton>? = null
     var onItemClickListener: OnItemClickListener? = null
     var onAnimationUpdateListener: OnAnimationUpdateListener? = null
+    var clickMargin : Int = 24
 
     //双缓冲画布
     private lateinit var mCacheCanvas: Canvas
@@ -91,7 +96,8 @@ class FunnyBottomNavigation @JvmOverloads constructor(
                 imageWidth,
                 imageHeight,
                 highlightColor,
-                normalColor
+                normalColor,
+                clickMargin
             )
             iconButton.id = i
 
@@ -236,7 +242,7 @@ class FunnyBottomNavigation @JvmOverloads constructor(
         }
     }
 
-    //测量View
+    // 测量View
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
@@ -268,9 +274,6 @@ class FunnyBottomNavigation @JvmOverloads constructor(
                     val iconButton = iconButtonList!![i]
                     if (iconButton.isClicked(event.x, event.y)) {
                         moveTo(i, true)
-                        if (onItemClickListener != null) {
-                            onItemClickListener!!.onClick(i)
-                        }
                         return true
                     }
                     i++
@@ -292,7 +295,7 @@ class FunnyBottomNavigation @JvmOverloads constructor(
      * @param performClick 是否同时执行点击事件【请确保点击事件不会造成方法死循环】
      */
     @JvmOverloads
-    fun moveTo(page: Int, hasAnimation: Boolean = true, performClick: Boolean = false) {
+    fun moveTo(page: Int, hasAnimation: Boolean = true, performClick: Boolean = true) {
         if (iconButtonList == null) throw RuntimeException("Button list has not been initialized! Please make sure you have called initIconButtons(...) before or wait a moment and try again.")
         require(!(page < 0 || page >= iconButtonList!!.size)) { "Illegal page index! Please make sure that page is from 0 to (the number of buttons - 1)." }
         if (mValueAnimator!!.isRunning) return
@@ -310,8 +313,8 @@ class FunnyBottomNavigation @JvmOverloads constructor(
             if (hasAnimation) startClickAnimation() else resetProgress()
             mLastPage = page
         }
-        if (performClick && onItemClickListener != null) {
-            onItemClickListener!!.onClick(page)
+        if (performClick) {
+            onItemClickListener?.onClick(page)
         }
     }
 
