@@ -1,4 +1,5 @@
 # FunnyBottomNavigation
+[![](https://jitpack.io/v/FunnySaltyFish/FunnyBottomNavigation.svg)](https://jitpack.io/#FunnySaltyFish/FunnyBottomNavigation)
 
 #### 介绍
 一个很漂亮的底部导航栏，继承自View，带有流畅且有趣的过度动画。支持Java/Kotlin和xml配置  
@@ -34,8 +35,9 @@ maven { url "https://jitpack.io" }
 2. 在模块级别的build.gradle引入依赖
 * 请注意，从v1.1.0开始，此库的实现语言由原先的Java迁移至Kotlin，此变迁一般不会影响Java使用，但仍有一定概率出现问题。如果遇到这类情况，请在issue中提出。
 * v1.1.1 发布地址由 gitee 更改至 github，所以下面的全名有差别。不能只改版本号。
+* 有些版本号带v有些不带（我的锅，请注意复制正确的）
 ```bash
-implementation 'com.github.FunnySaltyFish:FunnyBottomNavigation:v1.1.2'
+implementation 'com.github.FunnySaltyFish:FunnyBottomNavigation:{version}'
 ```
 3. 同步
 
